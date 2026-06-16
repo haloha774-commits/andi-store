@@ -97,13 +97,17 @@
 
 <!-- CART -->
 <div id="cart-popup" class="cart-popup">
-  <h2>Keranjang</h2>
+  <div class="cart-header">
+    <h2>Keranjang</h2>
+    <span class="cart-close" onclick="toggleCart()">✕</span>
+  </div>
 
   <div id="cart-items"></div>
+  <p id="cart-kosong" class="cart-kosong">Keranjang masih kosong 🛒</p>
 
   <h3>Total: ¥<span id="total">0</span></h3>
 
-  <button onclick="tampilForm()">Checkout</button>
+  <button id="btn-checkout" onclick="tampilForm()">Checkout</button>
 
   <!-- FORM -->
   <div id="formCheckout" class="checkout-form">

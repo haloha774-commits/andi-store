@@ -12,8 +12,14 @@ function tambahKeKeranjang(nama, harga, deskripsi, btn) {
 
   simpan();
   update();
-
   animasiTerbang(btn);
+
+  btn.textContent = "✓ Ditambahkan!";
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = "Tambah ke Keranjang";
+    btn.disabled = false;
+  }, 1200);
 }
 
 /* TOTAL */
@@ -26,6 +32,8 @@ function update() {
   let container = document.getElementById("cart-items");
   let total = document.getElementById("total");
   let count = document.getElementById("cart-count");
+  let kosong = document.getElementById("cart-kosong");
+  let btnCheckout = document.getElementById("btn-checkout");
 
   container.innerHTML = "";
 
@@ -36,24 +44,22 @@ function update() {
     div.innerHTML = `
       <div style="flex:1">
         <div><strong>${item.nama}</strong></div>
-        <div style="font-size:12px;color:#666;">
-          ${item.deskripsi || ""}
-        </div>
+        <div style="font-size:12px;color:#666;">${item.deskripsi || ""}</div>
       </div>
-
-      <button onclick="kurang(${i}, event)">-</button>
-      ${item.qty}
-      <button onclick="tambahQty(${i}, event)">+</button>
-
-      <span>¥${item.harga * item.qty}</span>
+      <button class="btn-qty" onclick="kurang(${i}, event)">−</button>
+      <span class="qty-num">${item.qty}</span>
+      <button class="btn-qty" onclick="tambahQty(${i}, event)">+</button>
+      <span class="item-harga">¥${item.harga * item.qty}</span>
     `;
 
     container.appendChild(div);
   });
 
+  let ada = keranjang.length > 0;
+  kosong.style.display = ada ? "none" : "block";
+  btnCheckout.style.display = ada ? "block" : "none";
   total.textContent = hitungTotal();
 
-  // 🔥 COUNT = TOTAL QTY (bukan jumlah item)
   let totalQty = keranjang.reduce((t, i) => t + i.qty, 0);
   count.textContent = totalQty;
 }
@@ -103,16 +109,17 @@ function checkoutWA() {
     return;
   }
 
-  let pesan = `🛒 *ORDER ANDI STORE*%0A%0A`;
+  let baris = [`🛒 *ORDER ANDI STORE*\n`];
 
   keranjang.forEach((item, i) => {
-    pesan += `${i + 1}. ${item.nama} x${item.qty} - ¥${item.harga * item.qty}%0A`;
+    baris.push(`${i + 1}. ${item.nama} x${item.qty} - ¥${item.harga * item.qty}`);
   });
 
   let total = hitungTotal();
+  baris.push(`\nTotal: ¥${total}\n`);
+  baris.push(`Nama: ${nama}\nAlamat: ${alamat}`);
 
-  pesan += `%0ATotal: ¥${total}%0A%0A`;
-  pesan += `Nama: ${nama}%0AAlamat: ${alamat}`;
+  let pesan = encodeURIComponent(baris.join("\n"));
 
   const nomor = "6288224781707";
 
