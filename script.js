@@ -165,7 +165,7 @@ function checkoutWA() {
   document.getElementById("formCheckout").classList.remove("show");
 }
 
-/* ANIMASI TERBANG */
+/* ANIMASI PECAH & TERBANG */
 function animasiTerbang(btn) {
   const produk = btn.closest(".produk");
   const img = produk.querySelector("img");
@@ -174,35 +174,94 @@ function animasiTerbang(btn) {
   const imgRect = img.getBoundingClientRect();
   const cartRect = cart.getBoundingClientRect();
 
-  const clone = img.cloneNode(true);
+  const COLS = 4;
+  const ROWS = 4;
+  const tileW = imgRect.width / COLS;
+  const tileH = imgRect.height / ROWS;
 
-  clone.style.position = "fixed";
-  clone.style.left = imgRect.left + "px";
-  clone.style.top = imgRect.top + "px";
-  clone.style.width = imgRect.width + "px";
-  clone.style.height = imgRect.height + "px";
-  clone.style.transition = "transform 0.8s cubic-bezier(0.22,1,0.36,1), opacity 0.8s";
-  clone.style.zIndex = "1000";
+  const cartCX = cartRect.left + cartRect.width / 2;
+  const cartCY = cartRect.top + cartRect.height / 2;
 
-  document.body.appendChild(clone);
+  const fragments = [];
 
-  const deltaX = cartRect.left - imgRect.left;
-  const deltaY = cartRect.top - imgRect.top;
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      const canvas = document.createElement("canvas");
+      canvas.width = tileW;
+      canvas.height = tileH;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, c * tileW, r * tileH, tileW, tileH, 0, 0, tileW, tileH);
 
-  setTimeout(() => {
-    clone.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(0.2)`;
-    clone.style.opacity = "0.5";
-  }, 10);
+      const tile = document.createElement("div");
+      tile.style.cssText = `
+        position:fixed;
+        left:${imgRect.left + c * tileW}px;
+        top:${imgRect.top + r * tileH}px;
+        width:${tileW}px;
+        height:${tileH}px;
+        overflow:hidden;
+        z-index:1000;
+        border-radius:2px;
+        pointer-events:none;
+        will-change:transform,opacity;
+      `;
+      tile.appendChild(canvas);
+      document.body.appendChild(tile);
+      fragments.push(tile);
+    }
+  }
 
-  setTimeout(() => {
-    clone.remove();
+  // Fase 1: serpihan meledak keluar dulu (0–300ms)
+  fragments.forEach((tile, i) => {
+    const angle = (i / fragments.length) * Math.PI * 2;
+    const burst = 30 + Math.random() * 25;
+    const bx = Math.cos(angle) * burst;
+    const by = Math.sin(angle) * burst;
+    const rot = (Math.random() - 0.5) * 40;
 
-    cart.style.transform = "scale(1.2)";
+    tile.style.transition = "transform 0.28s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.28s";
+
     setTimeout(() => {
-      cart.style.transform = "scale(1)";
-    }, 150);
+      tile.style.transform = `translate(${bx}px,${by}px) rotate(${rot}deg) scale(0.9)`;
+    }, 10);
+  });
 
-  }, 800);
+  // Fase 2: semua serpihan terbang ke keranjang (300–900ms)
+  fragments.forEach((tile, i) => {
+    const tileRect = tile.getBoundingClientRect();
+    const tileCX = tileRect.left + tileRect.width / 2;
+    const tileCY = tileRect.top + tileRect.height / 2;
+
+    const dx = cartCX - tileCX;
+    const dy = cartCY - tileCY;
+
+    const delay = 300 + i * 18;
+    const duration = 480 + Math.random() * 80;
+
+    setTimeout(() => {
+      tile.style.transition = `transform ${duration}ms cubic-bezier(0.4,0,0.2,1), opacity ${duration * 0.6}ms ease ${duration * 0.4}ms`;
+      tile.style.transform += ` translate(${dx}px,${dy}px) scale(0.05) rotate(${(Math.random()-0.5)*180}deg)`;
+      tile.style.opacity = "0";
+    }, delay);
+
+    setTimeout(() => tile.remove(), delay + duration + 50);
+  });
+
+  // Keranjang goyang waktu item masuk
+  const lastDelay = 300 + (fragments.length - 1) * 18 + 500;
+  setTimeout(() => {
+    cart.style.transition = "transform 0.1s";
+    cart.style.transform = "scale(1.35) rotate(-8deg)";
+    setTimeout(() => {
+      cart.style.transform = "scale(1.2) rotate(6deg)";
+      setTimeout(() => {
+        cart.style.transform = "scale(1.1) rotate(-3deg)";
+        setTimeout(() => {
+          cart.style.transform = "scale(1) rotate(0deg)";
+        }, 100);
+      }, 100);
+    }, 100);
+  }, lastDelay);
 }
 
 /* TOGGLE CART */
