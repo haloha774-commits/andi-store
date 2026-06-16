@@ -174,6 +174,15 @@ function checkoutWA() {
   update();
 
   document.getElementById("formCheckout").classList.remove("show");
+  document.getElementById("cart-popup").classList.remove("show");
+
+  setTimeout(() => {
+    document.getElementById("modal-sukses").classList.add("show");
+  }, 500);
+}
+
+function tutupSukses() {
+  document.getElementById("modal-sukses").classList.remove("show");
 }
 
 /* ANIMASI PECAH & TERBANG */
@@ -300,17 +309,17 @@ window.addEventListener('load', () => {
 
 /* SCROLL REVEAL */
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
+  entries.forEach((entry) => {
     if (entry.isIntersecting) {
-      setTimeout(() => {
-        entry.target.classList.add('visible');
-      }, i * 100);
+      entry.target.classList.add('visible');
       observer.unobserve(entry.target);
     }
   });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  setTimeout(() => observer.observe(el), i * 120);
+});
 
 /* LOAD */
 update();
