@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Toko Andi Store</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <h1>🛒 Andi Store</h1>
+
+  <div class="cart-icon" onclick="toggleCart()">
+    🛒 <span id="cart-count">0</span>
+  </div>
+</header>
+
+<!-- PRODUK -->
+<section class="produk-container">
+
+  <!-- PRODUK 1 -->
+  <div class="produk">
+    <div class="zoom-container">
+      <img src="image/Ayam-Goreng-Mayonaise.jpg" class="gambar" onclick="bukaGambar(this)">
+    </div>
+
+    <h3>Ayam Goreng Mayonaise</h3>
+    <p class="harga">¥1000</p>
+
+    <p class="deskripsi">
+      Ayam segar, tepung crispy, mayonaise premium.
+    </p>
+
+    <button onclick="tambahKeKeranjang('Ayam Goreng Mayonaise',1000,'Ayam crispy + mayo',this)">
+      Tambah ke Keranjang
+    </button>
+  </div>
+
+  <!-- PRODUK 2 -->
+  <div class="produk">
+    <div class="zoom-container">
+      <img src="image/Gehu-Sambel.jpg" class="gambar" onclick="bukaGambar(this)">
+    </div>
+
+    <h3>Gehu Sambel Bawang</h3>
+    <p class="harga">¥700</p>
+
+    <p class="deskripsi">
+      Tahu isi + sambel pedas 🔥
+    </p>
+
+    <button onclick="tambahKeKeranjang('Gehu Sambel Bawang',700,'Tahu + sambel pedas',this)">
+      Tambah ke Keranjang
+    </button>
+  </div>
+
+  <!-- PRODUK 3 -->
+  <div class="produk">
+    <div class="zoom-container">
+      <img src="image/Roti-Isi-Daging.jpg" class="gambar" onclick="bukaGambar(this)">
+    </div>
+
+    <h3>Roti Isi Daging</h3>
+    <p class="harga">¥500</p>
+
+    <p class="deskripsi">
+      Roti lembut isi daging juicy.
+    </p>
+
+    <button onclick="tambahKeKeranjang('Roti Isi Daging',500,'Roti isi daging',this)">
+      Tambah ke Keranjang
+    </button>
+  </div>
+
+  <!-- PRODUK 4 -->
+  <div class="produk">
+    <div class="zoom-container">
+      <img src="image/Sosis-Saos-Barbeque.jpg" class="gambar" onclick="bukaGambar(this)">
+    </div>
+
+    <h3>Sosis Saus Barbeque</h3>
+    <p class="harga">¥800</p>
+
+    <p class="deskripsi">
+      Sosis + saus BBQ smoky 😎
+    </p>
+
+    <button onclick="tambahKeKeranjang('Sosis Saus Barbeque',800,'Sosis BBQ',this)">
+      Tambah ke Keranjang
+    </button>
+  </div>
+
+</section>
+
+<!-- CART -->
+<div id="cart-popup" class="cart-popup">
+  <h2>Keranjang</h2>
+
+  <div id="cart-items"></div>
+
+  <h3>Total: ¥<span id="total">0</span></h3>
+
+  <button onclick="tampilForm()">Checkout</button>
+
+  <!-- FORM -->
+  <div id="formCheckout" class="checkout-form">
+    <input type="text" id="nama" placeholder="Nama">
+    <input type="text" id="alamat" placeholder="Alamat">
+    <button onclick="checkoutWA()">Kirim ke WhatsApp</button>
+  </div>
+</div>
+
+
+<!-- MODAL GAMBAR -->
+<div id="modal" class="modal">
+  <span class="close" onclick="tutupGambar()">&times;</span>
+  <img id="gambarBesar">
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
