@@ -42,14 +42,18 @@ function update() {
     div.classList.add("cart-item");
 
     div.innerHTML = `
-      <div style="flex:1">
-        <div><strong>${item.nama}</strong></div>
-        <div style="font-size:12px;color:#666;">${item.deskripsi || ""}</div>
+      <div class="cart-item-top">
+        <span class="cart-item-nama">${item.nama}</span>
+        <button class="btn-hapus" onclick="hapusItem(${i}, event)" title="Hapus">🗑</button>
       </div>
-      <button class="btn-qty" onclick="kurang(${i}, event)">−</button>
-      <span class="qty-num">${item.qty}</span>
-      <button class="btn-qty" onclick="tambahQty(${i}, event)">+</button>
-      <span class="item-harga">¥${item.harga * item.qty}</span>
+      <div class="cart-item-bot">
+        <div class="cart-item-qty">
+          <button class="btn-qty" onclick="kurang(${i}, event)">−</button>
+          <span class="qty-num">${item.qty}</span>
+          <button class="btn-qty" onclick="tambahQty(${i}, event)">+</button>
+        </div>
+        <span class="item-harga">¥${item.harga * item.qty}</span>
+      </div>
     `;
 
     container.appendChild(div);
@@ -68,6 +72,13 @@ function update() {
 function tambahQty(i, e) {
   e.stopPropagation(); // 🔥 penting
   keranjang[i].qty++;
+  simpan();
+  update();
+}
+
+function hapusItem(i, e) {
+  e.stopPropagation();
+  keranjang.splice(i, 1);
   simpan();
   update();
 }
