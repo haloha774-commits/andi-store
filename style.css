@@ -443,6 +443,7 @@ button:disabled {
 }
 
 .btn-hapus:hover {
+  background: none;
   transform: scale(1.2);
   filter: grayscale(1) brightness(0);
 }
