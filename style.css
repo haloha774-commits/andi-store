@@ -3,15 +3,15 @@
 }
 
 :root {
-  --primary: #ff6b35;
-  --primary-dark: #e85a24;
-  --primary-light: #fff3ef;
-  --text: #1a1a2e;
+  --primary: #2d6a4f;
+  --primary-dark: #1b4332;
+  --primary-light: #f0f7f4;
+  --text: #1a1a1a;
   --text-muted: #888;
-  --bg: #f7f7f8;
+  --bg: #f0f7f4;
   --card-bg: #ffffff;
   --shadow: 0 4px 20px rgba(0,0,0,0.08);
-  --shadow-hover: 0 8px 30px rgba(255,107,53,0.2);
+  --shadow-hover: 0 8px 30px rgba(45,106,79,0.2);
   --radius: 16px;
 }
 
@@ -24,7 +24,7 @@ body {
 
 /* HEADER */
 header {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);
   color: white;
   padding: 16px 64px 16px 20px;
   position: relative;
