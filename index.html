@@ -3,121 +3,143 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
-  <title>Toko Andi Store</title>
+  <title>SEKA STORE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+<!-- SPLASH SCREEN -->
+<div id="splash">
+  <div class="splash-content">
+    <div class="splash-logo">🍱</div>
+    <div class="splash-title">SEKA STORE</div>
+    <div class="splash-sub">Pesan sekarang, jangan sampai kehabisan!</div>
+  </div>
+</div>
+
 <!-- HEADER -->
 <header>
-  <h1>🛒 Andi Store</h1>
-
+  <div class="header-brand">
+    <h1>🍱 SEKA STORE</h1>
+    <p class="header-sub">Pesan sekarang, jangan sampai kehabisan!</p>
+  </div>
   <div class="cart-icon" onclick="toggleCart()">
     🛒 <span id="cart-count">0</span>
   </div>
 </header>
 
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-label">🔥 Segar &amp; Siap Order</p>
+  <h2 class="hero-title">Dari dapur,<br>langsung ke<br>tanganmu.</h2>
+  <div class="hero-meta">
+    <span>📦 Pilihan lengkap</span>
+    <span class="hero-dot">·</span>
+    <span>⚡ Antar cepat</span>
+    <span class="hero-dot">·</span>
+    <span>💬 Via WhatsApp</span>
+  </div>
+</div>
+
+<!-- FILTER KATEGORI -->
+<div class="kategori-wrapper">
+  <div id="kategori-tabs" class="kategori-tabs"></div>
+</div>
+
 <!-- PRODUK -->
-<section class="produk-container">
-
-  <!-- PRODUK 1 -->
-  <div class="produk">
-    <div class="zoom-container">
-      <img src="image/Ayam-Goreng-Mayonaise.jpg" class="gambar" onclick="bukaGambar(this)">
-    </div>
-
-    <h3>Ayam Goreng Mayonaise</h3>
-    <p class="harga">¥1000</p>
-
-    <p class="deskripsi">
-      Ayam segar, tepung crispy, mayonaise premium.
-    </p>
-
-    <button onclick="tambahKeKeranjang('Ayam Goreng Mayonaise',1000,'Ayam crispy + mayo',this)">
-      Tambah ke Keranjang
-    </button>
-  </div>
-
-  <!-- PRODUK 2 -->
-  <div class="produk">
-    <div class="zoom-container">
-      <img src="image/Gehu-Sambel.jpg" class="gambar" onclick="bukaGambar(this)">
-    </div>
-
-    <h3>Gehu Sambel Bawang</h3>
-    <p class="harga">¥700</p>
-
-    <p class="deskripsi">
-      Tahu isi + sambel pedas 🔥
-    </p>
-
-    <button onclick="tambahKeKeranjang('Gehu Sambel Bawang',700,'Tahu + sambel pedas',this)">
-      Tambah ke Keranjang
-    </button>
-  </div>
-
-  <!-- PRODUK 3 -->
-  <div class="produk">
-    <div class="zoom-container">
-      <img src="image/Roti-Isi-Daging.jpg" class="gambar" onclick="bukaGambar(this)">
-    </div>
-
-    <h3>Roti Isi Daging</h3>
-    <p class="harga">¥500</p>
-
-    <p class="deskripsi">
-      Roti lembut isi daging juicy.
-    </p>
-
-    <button onclick="tambahKeKeranjang('Roti Isi Daging',500,'Roti isi daging',this)">
-      Tambah ke Keranjang
-    </button>
-  </div>
-
-  <!-- PRODUK 4 -->
-  <div class="produk">
-    <div class="zoom-container">
-      <img src="image/Sosis-Saos-Barbeque.jpg" class="gambar" onclick="bukaGambar(this)">
-    </div>
-
-    <h3>Sosis Saus Barbeque</h3>
-    <p class="harga">¥800</p>
-
-    <p class="deskripsi">
-      Sosis + saus BBQ smoky 😎
-    </p>
-
-    <button onclick="tambahKeKeranjang('Sosis Saus Barbeque',800,'Sosis BBQ',this)">
-      Tambah ke Keranjang
-    </button>
-  </div>
-
-</section>
+<section id="produk-container" class="produk-container"></section>
 
 <!-- CART -->
 <div id="cart-popup" class="cart-popup">
-  <h2>Keranjang</h2>
+  <div class="cart-header">
+    <h2>Keranjang</h2>
+    <span class="cart-close" onclick="toggleCart()">✕</span>
+  </div>
 
   <div id="cart-items"></div>
+  <p id="cart-kosong" class="cart-kosong">Keranjang masih kosong 🛒</p>
 
-  <h3>Total: ¥<span id="total">0</span></h3>
+  <div class="cart-total">
+    <span>Total</span>
+    <span>¥<span id="total">0</span></span>
+  </div>
 
-  <button onclick="tampilForm()">Checkout</button>
+  <button id="btn-checkout" onclick="tampilForm()">🛒 Checkout Sekarang</button>
 
   <!-- FORM -->
   <div id="formCheckout" class="checkout-form">
-    <input type="text" id="nama" placeholder="Nama">
-    <input type="text" id="alamat" placeholder="Alamat">
+    <div class="field-group">
+      <input type="text" id="nama" placeholder="Nama lengkap" maxlength="50">
+      <span class="field-error" id="err-nama"></span>
+    </div>
+    <div class="field-group">
+      <input type="text" id="alamat" placeholder="Alamat lengkap (min. 10 karakter)" maxlength="200">
+      <span class="field-error" id="err-alamat"></span>
+    </div>
+    <div class="field-group">
+      <input type="tel" id="hp" placeholder="Nomor HP (opsional)">
+      <span class="field-error" id="err-hp"></span>
+    </div>
     <button onclick="checkoutWA()">Kirim ke WhatsApp</button>
   </div>
 </div>
 
 
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">🍱 SEKA STORE</div>
+      <p class="footer-tagline">Pesan sekarang, jangan sampai kehabisan!</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Jam Buka</h4>
+      <p>Sabtu – Kamis</p>
+      <p>08.00 – 21.00 WIB</p>
+      <p class="footer-tutup">Jum'at: Tutup</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Hubungi Kami</h4>
+      <a class="footer-wa" href="https://wa.me/6288224781707" target="_blank">
+        📱 WhatsApp Kami
+      </a>
+      <p class="footer-note">Respon cepat, ramah, siap antar!</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Ikuti Kami</h4>
+      <div class="footer-sosmed">
+        <span>📸 Instagram</span>
+        <span>🎵 TikTok</span>
+        <span>👥 Facebook</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 SEKA STORE · Dibuat dengan rempah pilihan berkualitas</p>
+  </div>
+</footer>
+
+<!-- MODAL SUKSES -->
+<div id="modal-sukses" class="modal-sukses">
+  <div class="sukses-content">
+    <div class="sukses-icon">🎉</div>
+    <h3>Order Terkirim!</h3>
+    <p>Terima kasih sudah pesan di SEKA STORE.<br>Kami akan segera konfirmasi via WhatsApp!</p>
+    <button onclick="tutupSukses()">Tutup</button>
+  </div>
+</div>
+
 <!-- MODAL GAMBAR -->
 <div id="modal" class="modal">
   <span class="close" onclick="tutupGambar()">&times;</span>
-  <img id="gambarBesar">
+  <img id="gambarBesar" alt="Gambar produk diperbesar">
 </div>
 
 <script src="script.js"></script>
