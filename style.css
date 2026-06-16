@@ -509,6 +509,106 @@ button:disabled {
   opacity: 1;
 }
 
+/* FOOTER */
+footer {
+  background: #1b4332;
+  color: rgba(255,255,255,0.85);
+  margin-top: 32px;
+  font-size: 14px;
+}
+
+.footer-top {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 32px 20px;
+}
+
+.footer-logo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.footer-tagline {
+  margin: 0;
+  color: rgba(255,255,255,0.5);
+  font-size: 13px;
+}
+
+.footer-col h4 {
+  margin: 0 0 10px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.footer-col p {
+  margin: 0 0 4px;
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+}
+
+.footer-tutup {
+  color: #f87171 !important;
+  font-size: 12px !important;
+  margin-top: 4px !important;
+}
+
+.footer-wa {
+  display: inline-block;
+  background: #25d366;
+  color: #fff;
+  text-decoration: none;
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 8px;
+  transition: background 0.2s;
+}
+
+.footer-wa:hover {
+  background: #1fb855;
+}
+
+.footer-note {
+  color: rgba(255,255,255,0.45) !important;
+  font-size: 11px !important;
+}
+
+.footer-sosmed {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-sosmed a {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s;
+}
+
+.footer-sosmed a:hover {
+  color: #fff;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 16px 20px;
+  text-align: center;
+  color: rgba(255,255,255,0.35);
+  font-size: 12px;
+}
+
+.footer-bottom p {
+  margin: 0;
+}
+
 /* TABLET & DESKTOP */
 @media (min-width: 600px) {
   .produk-container {
@@ -559,5 +659,16 @@ button:disabled {
 @media (min-width: 768px) {
   .header-brand h1 {
     font-size: 24px;
+  }
+
+  .footer-top {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 40px;
+    gap: 20px;
+  }
+
+  .footer-brand {
+    max-width: 200px;
   }
 }
