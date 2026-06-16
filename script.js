@@ -99,15 +99,46 @@ function tampilForm() {
   document.getElementById("formCheckout").classList.toggle("show");
 }
 
+/* VALIDASI */
+function setError(id, pesan) {
+  document.getElementById(id).textContent = pesan;
+  document.getElementById(id.replace("err-", "")).classList.toggle("input-error", !!pesan);
+}
+
+function validasiForm(nama, alamat, hp) {
+  let valid = true;
+
+  if (nama.trim().length < 3) {
+    setError("err-nama", "Nama minimal 3 karakter");
+    valid = false;
+  } else {
+    setError("err-nama", "");
+  }
+
+  if (alamat.trim().length < 10) {
+    setError("err-alamat", "Alamat terlalu pendek, minimal 10 karakter");
+    valid = false;
+  } else {
+    setError("err-alamat", "");
+  }
+
+  if (hp && !/^[0-9+\s-]{8,15}$/.test(hp.trim())) {
+    setError("err-hp", "Format nomor HP tidak valid");
+    valid = false;
+  } else {
+    setError("err-hp", "");
+  }
+
+  return valid;
+}
+
 /* CHECKOUT WA */
 function checkoutWA() {
   let nama = document.getElementById("nama").value;
   let alamat = document.getElementById("alamat").value;
+  let hp = document.getElementById("hp").value;
 
-  if (!nama || !alamat) {
-    alert("Isi nama & alamat dulu!");
-    return;
-  }
+  if (!validasiForm(nama, alamat, hp)) return;
 
   let baris = [`🛒 *ORDER ANDI STORE*\n`];
 
@@ -118,6 +149,7 @@ function checkoutWA() {
   let total = hitungTotal();
   baris.push(`\nTotal: ¥${total}\n`);
   baris.push(`Nama: ${nama}\nAlamat: ${alamat}`);
+  if (hp) baris.push(`HP: ${hp}`);
 
   let pesan = encodeURIComponent(baris.join("\n"));
 

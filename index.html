@@ -110,8 +110,18 @@
 
   <!-- FORM -->
   <div id="formCheckout" class="checkout-form">
-    <input type="text" id="nama" placeholder="Nama">
-    <input type="text" id="alamat" placeholder="Alamat">
+    <div class="field-group">
+      <input type="text" id="nama" placeholder="Nama lengkap" maxlength="50">
+      <span class="field-error" id="err-nama"></span>
+    </div>
+    <div class="field-group">
+      <input type="text" id="alamat" placeholder="Alamat lengkap (min. 10 karakter)" maxlength="200">
+      <span class="field-error" id="err-alamat"></span>
+    </div>
+    <div class="field-group">
+      <input type="tel" id="hp" placeholder="Nomor HP (opsional)">
+      <span class="field-error" id="err-hp"></span>
+    </div>
     <button onclick="checkoutWA()">Kirim ke WhatsApp</button>
   </div>
 </div>
